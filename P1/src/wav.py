@@ -21,29 +21,21 @@ def display_wave_info(file_path):
 
             total_samples = num_frames * num_channels
             
-            # Update the labels with the wave file information
             file_label.config(text=f"File: {os.path.basename(file_path)}")
-            channels_label.config(text=f"Channels: {num_channels}")
             sample_rate_label.config(text=f"Sampling Frequency: {sample_rate} Hz")
             total_samples_label.config(text=f"Number of Samples: {total_samples}")
     except wave.Error as e:
         messagebox.showerror("Error", f"Error reading .wav file: {e}")
 
-# Create the main window
 root = tk.Tk()
 root.title("WAV File Reader")
 root.geometry("400x300")
 
-# File selection button
 browse_button = tk.Button(root, text="Browse WAV File", command=browse_file)
 browse_button.pack(pady=20)
 
-# Labels to display wave file information
 file_label = tk.Label(root, text="File: None", font=('Arial', 12))
 file_label.pack(pady=5)
-
-channels_label = tk.Label(root, text="Channels: -", font=('Arial', 12))
-channels_label.pack(pady=5)
 
 sample_rate_label = tk.Label(root, text="Sampling Frequency: -", font=('Arial', 12))
 sample_rate_label.pack(pady=5)
@@ -51,5 +43,4 @@ sample_rate_label.pack(pady=5)
 total_samples_label = tk.Label(root, text="Number of Samples: -", font=('Arial', 12))
 total_samples_label.pack(pady=5)
 
-# Start the Tkinter event loop
 root.mainloop()
