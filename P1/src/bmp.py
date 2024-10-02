@@ -29,4 +29,7 @@ open_button.pack(pady=10)
 image_label = tk.Label(root)
 image_label.pack()
 
+info_label = tk.Label(root, text="Image info will be displayed here.")
+info_label.pack(pady=10)
+
 root.mainloop()
