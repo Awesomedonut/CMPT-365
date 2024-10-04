@@ -1,4 +1,7 @@
-import tkinter as tk
+# Yan Jin Song, student number 301470175
+
+
+from tkinter import *
 from tkinter import filedialog, messagebox
 import wave
 import struct
@@ -72,30 +75,30 @@ def plot_waveform(channel_data, y_offset, color):
         prev_x, prev_y = x, y
 
 # Create the main window
-root = tk.Tk()
-root.title("WAV File Reader and Waveform Display")
-root.geometry("800x400")
+window = Tk()
+window.title("WAV File Reader and Waveform Display")
+window.geometry("800x400")
 
 # File selection button
-browse_button = tk.Button(root, text="Browse WAV File", command=browse_file)
+browse_button = Button(window, text="Browse WAV File", command=browse_file)
 browse_button.pack(pady=20)
 
 # Labels to display wave file information
-file_label = tk.Label(root, text="File: None", font=('Arial', 12))
+file_label = Label(window, text="File: None", font=('Arial', 12))
 file_label.pack(pady=5)
 
-channels_label = tk.Label(root, text="Channels: -", font=('Arial', 12))
+channels_label = Label(window, text="Channels: -", font=('Arial', 12))
 channels_label.pack(pady=5)
 
-sample_rate_label = tk.Label(root, text="Sampling Frequency: -", font=('Arial', 12))
+sample_rate_label = Label(window, text="Sampling Frequency: -", font=('Arial', 12))
 sample_rate_label.pack(pady=5)
 
-total_samples_label = tk.Label(root, text="Number of Samples: -", font=('Arial', 12))
+total_samples_label = Label(window, text="Number of Samples: -", font=('Arial', 12))
 total_samples_label.pack(pady=5)
 
 # Canvas for drawing the waveform
-waveform_canvas = tk.Canvas(root, width=700, height=200, bg='white')
+waveform_canvas = Canvas(window, width=700, height=200, bg='white')
 waveform_canvas.pack(pady=20)
 
 # Start the Tkinter event loop
-root.mainloop()
+window.mainloop()

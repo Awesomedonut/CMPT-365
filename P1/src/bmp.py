@@ -1,4 +1,6 @@
-import tkinter as tk
+# Yan Jin Song, student number 301470175
+
+from tkinter import *
 from tkinter import filedialog, messagebox
 from PIL import Image, ImageTk
 
@@ -20,16 +22,16 @@ def open_bmp_image():
         except IOError:
             messagebox.showerror("Error", "File could not be opened or is not a valid BMP image.")
 
-root = tk.Tk()
-root.title("BMP Image Viewer")
+window = Tk()
+window.title("BMP Image Viewer")
 
-open_button = tk.Button(root, text="Open BMP File", command=open_bmp_image)
+open_button = Button(window, text="Open BMP File", command=open_bmp_image)
 open_button.pack(pady=10)
 
-image_label = tk.Label(root)
+image_label = Label(window)
 image_label.pack()
 
-info_label = tk.Label(root, text="Image info will be displayed here.")
+info_label = Label(window, text="Image info will be displayed here.")
 info_label.pack(pady=10)
 
-root.mainloop()
+window.mainloop()
