@@ -13,25 +13,42 @@ def open_bmp_image():
     if file_path:
         try:
             img = Image.open(file_path)
-            img.thumbnail((400, 400))  
+
+
+            # Display the image
             img_tk = ImageTk.PhotoImage(img)
             image_label.config(image=img_tk)
-            image_label.image = img_tk  
+            image_label.image = img_tk
 
-            info_label.config(text=f"Image size: {img.size}, Image mode: {img.mode}")
         except IOError:
             messagebox.showerror("Error", "File could not be opened or is not a valid BMP image.")
 
+def exit_program():
+    window.quit()
+
+# Main window setup
 window = Tk()
+window.geometry("800x600")
 window.title("Q2:.bmp file displayer")
 
-open_button = Button(window, text="Open BMP", command=open_bmp_image)
-open_button.pack(pady=10)
+# Creating a menu bar
+menu_bar = Menu(window)
+window.config(menu=menu_bar)
 
+# Adding "File" menu
+file_menu = Menu(menu_bar, tearoff=0)
+menu_bar.add_cascade(label="File", menu=file_menu)
+file_menu.add_command(label="Open File", command=open_bmp_image)
+file_menu.add_separator()
+file_menu.add_command(label="Exit", command=exit_program)
+
+# Display area for image
 image_label = Label(window)
 image_label.pack()
 
+# Info label for image details
 info_label = Label(window, text="Image info will be displayed here.")
 info_label.pack(pady=10)
 
+# Start the main loop
 window.mainloop()
