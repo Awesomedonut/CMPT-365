@@ -6,8 +6,8 @@ from PIL import Image, ImageTk
 
 def open_bmp_image():
     file_path = filedialog.askopenfilename(
-        title="Select a BMP File", 
-        filetypes=[("BMP files", "*.bmp")]
+        title="Open File", 
+        filetypes=[(".bmp files", "*.bmp")]
     )
     
     if file_path:
@@ -23,9 +23,9 @@ def open_bmp_image():
             messagebox.showerror("Error", "File could not be opened or is not a valid BMP image.")
 
 window = Tk()
-window.title("BMP Image Viewer")
+window.title("Q2:.bmp file displayer")
 
-open_button = Button(window, text="Open BMP File", command=open_bmp_image)
+open_button = Button(window, text="Open BMP", command=open_bmp_image)
 open_button.pack(pady=10)
 
 image_label = Label(window)
