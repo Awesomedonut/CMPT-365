@@ -3,50 +3,41 @@
 from tkinter import *
 from tkinter import filedialog, messagebox
 import wave
-import struct
-import os
+import struct # for handling binary data
+import os # for file paths
 
 def open_file():
-    global current_file_path
     path = filedialog.askopenfilename(filetypes=[(".wav files", "*.wav")])
     if path:
-        current_file_path = path
-        display_wave_info(path)
-        draw_waveform(path)
+        get_and_display_info(path)
+        display_waveforms(path)
     else:
-        messagebox.showerror("Error", "Invalid file path")
+        return
 
-def display_wave_info(file_path):
-    try:
-        with wave.open(file_path, 'rb') as wf:
-            # Always assume 2 channels
-            sample_rate = wf.getframerate()
-            num_frames = wf.getnframes()
-            total_samples = num_frames * 2  # Since we assume 2 channels
-            file_label.config(text=f"File: {os.path.basename(file_path)}")
-            sample_rate_label.config(text=f"Sampling frequency: {sample_rate} Hz")
-            total_samples_label.config(text=f"Total number of samples: {total_samples}")
-    except wave.Error as e:
-        messagebox.showerror("Error", f"Error reading .wav file: {e}")
+def get_and_display_info(file_path):
+    with wave.open(file_path, 'rb') as waveform: # opens in read only mode
+        sample_rate = waveform.getframerate()
+        num_frames = waveform.getnframes()
+        total_samples = num_frames * 2  # stereo only, aka 2 channels
+        file_label.config(text=f"File: {os.path.basename(file_path)}")
+        sample_rate_label.config(text=f"Sampling frequency: {sample_rate} Hz")
+        total_samples_label.config(text=f"Total number of samples: {total_samples}")
 
-def draw_waveform(file_path):
-    try:
-        with wave.open(file_path, 'rb') as wf:
-            num_frames = wf.getnframes()
-            raw_data = wf.readframes(num_frames)
-            fmt = f"<{num_frames * 2}h"  # Since we assume 2 channels
-            data = struct.unpack(fmt, raw_data)
-            waveform_canvas.delete("all")
-            # No axes or labels
-            # draw_axes()
-            left_channel = data[0::2]
-            right_channel = data[1::2]
-            plot_waveform(left_channel, channel='left')
-            plot_waveform(right_channel, channel='right')
-    except Exception as e:
-        messagebox.showerror("Error", f"Unable to process and draw waveform: {e}")
+def display_waveforms(file_path):
+    with wave.open(file_path, 'rb') as waveform:
+        num_frames = waveform.getnframes()
+        raw_data = waveform.readframes(num_frames)
+        format_string = f"<{num_frames * 2}h"  # 2 because stereo. how to interpret binary data
+        data = struct.unpack(format_string, raw_data)
 
-def plot_waveform(channel_data, channel):
+        waveform_canvas.delete("all") # clear existing plots
+
+        left_channel = data[0::2] # separates data for left and right, which alternates
+        right_channel = data[1::2]
+        plot_one_waveform(left_channel, channel='left')
+        plot_one_waveform(right_channel, channel='right')
+
+def plot_one_waveform(channel_data, channel):
     max_samples = min(131072, len(channel_data))  # Limit for performance
     x_scale = PLOT_WIDTH / max_samples
 
@@ -87,7 +78,6 @@ def setup_plot_dimensions():
 window = Tk()
 window.title("Q1: Stero .wav file reader and waveform plotter")
 window.geometry("800x600")
-current_file_path = None
 
 browse_button = Button(window, text="Open a .wav File", command=open_file)
 browse_button.pack(pady=10)
