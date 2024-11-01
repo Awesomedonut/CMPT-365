@@ -4,18 +4,42 @@ from tkinter import *
 from PIL import Image
 
 from file import open_image, save_image, update_display
-from img.grayscale import grayscale_image
+from img.grayscale import grayscale
 from img.dithering import ordered_dithering
 from img.auto_level import auto_level_image
 from tools.magic_eraser import magic_eraser
-from tools.drawing import draw_with_pen, erase
-from tools.crop import crop_image
-from text import add_text_to_image
 
+
+from test import test
+
+image = None
+
+# def open_file():
+#     global image
+#     image = open_image()
+#     update_display(image, )
+
+# def save_file():
+#     global image
+#     save_image(image)
+
+def edit_img(case: str):
+    global image
+    if image == None:
+        print("pls select an image")
+        
+    match case:
+        case "grayscale":
+            grayscale(image)
+
+    update_display()
+
+    
 
 
 window = Tk()
-window.geometry("900x650")
+window.geometry("1500x650") # the max width is 704 so in order for image 
+# and processed image to be displayed side by side, the window width is slightly more than twice that
 window.title("Fotoshop by Jin")
 
 menu = Menu(window)
@@ -29,21 +53,19 @@ file_menu.add_command(label="Save File", command=save_file)
 img_menu = Menu(menu, tearoff=0)
 menu.add_cascade(label="Image Processing", menu=img_menu)
 img_menu.add_command(label="Grayscale", command=grayscale)
-img_menu.add_command(label="Ordered Dithering", command=dithering)
-img_menu.add_command(label="Auto Level", command=auto_level)
+# img_menu.add_command(label="Ordered Dithering", command=dithering)
+# img_menu.add_command(label="Auto Level", command=auto_level)
 
-tools_menu = Menu(menu, tearoff=0)
-menu.add_cascade(label="Optional Tools", menu=tools_menu)
-tools_menu.add_command(label="Magic Eraser", command=magic_eraser)
-tools_menu.add_command(label="Pen", command=pen)
-tools_menu.add_command(label="Eraser", command=eraser)
-tools_menu.add_command(label="Crop", command=crop)
-tools_menu.add_command(label="Add Text", command=text)
+# tools_menu = Menu(menu, tearoff=0)
+# menu.add_cascade(label="Optional Tools", menu=tools_menu)
+# tools_menu.add_command(label="Magic Eraser", command=lambda: test("asdffjsdf"))
+# tools_menu.add_command(label="Pen", command=pen)
+# tools_menu.add_command(label="Eraser", command=eraser)
+# tools_menu.add_command(label="Crop", command=crop)
+# tools_menu.add_command(label="Add Text", command=text)
 
-menu.add_separator()
-menu.add_command(label="Exit", command=window.quit)
-
-image_label = Label(window)
-image_label.pack()
+exit_menu = Menu(menu, tearoff=0)
+menu.add_cascade(label="Exit", menu=exit_menu)
+exit_menu.add_command(label="Exit", command=window.quit)
 
 window.mainloop()
