@@ -10,9 +10,10 @@ dither_matrix = np.array([
 ]) * (255/16) 
 
 def ordered_dithering(image):
-    image = grayscale(image)
-    img_array = np.array(image)
+    img_array = np.array(grayscale(image))
+    img_array = img_array[:, :, 0] #extract r channel only as r=g=b
     y_max, x_max = img_array.shape
+
     dithered_img = np.zeros((y_max, x_max), dtype=np.uint8) # init as matrix of 0s
     
     for y in range(y_max):
@@ -26,5 +27,5 @@ def ordered_dithering(image):
     return Image.fromarray(dithered_img)
 
 result = ordered_dithering(Image.open("image3.bmp"))
-result.save("dithered_output.bmp")
+result.save("dithered_output.jpg")
 
