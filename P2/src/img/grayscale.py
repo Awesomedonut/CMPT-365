@@ -28,6 +28,6 @@ def grayscale(image):
     return gray_img
 
 
-grayscale("image3.bmp")
+# grayscale("image3.bmp")
 
 # x, y, z = [1,2,3], [4,5,6], [7,8,9]

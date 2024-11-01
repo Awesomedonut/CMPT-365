@@ -9,15 +9,15 @@ from img.dithering import ordered_dithering
 from img.auto_level import auto_level_image
 from tools.magic_eraser import magic_eraser
 
-
 from test import test
 
 image = None
 
-# def open_file():
-#     global image
-#     image = open_image()
-#     update_display(image, )
+def open():
+    global image
+    global image_label
+    image = open_image()
+    update_display(image, image_label)
 
 # def save_file():
 #     global image
@@ -27,7 +27,7 @@ def edit_img(case: str):
     global image
     if image == None:
         print("pls select an image")
-        
+
     match case:
         case "grayscale":
             grayscale(image)
@@ -47,8 +47,8 @@ window.config(menu=menu)
 
 file_menu = Menu(menu, tearoff=0)
 menu.add_cascade(label="File", menu=file_menu)
-file_menu.add_command(label="Open File", command=open_file)
-file_menu.add_command(label="Save File", command=save_file)
+file_menu.add_command(label="Open File", command=open)
+# file_menu.add_command(label="Save File", command=save_file)
 
 img_menu = Menu(menu, tearoff=0)
 menu.add_cascade(label="Image Processing", menu=img_menu)
@@ -67,5 +67,8 @@ img_menu.add_command(label="Grayscale", command=grayscale)
 exit_menu = Menu(menu, tearoff=0)
 menu.add_cascade(label="Exit", menu=exit_menu)
 exit_menu.add_command(label="Exit", command=window.quit)
+
+image_label = Label(window)
+image_label.pack()
 
 window.mainloop()
