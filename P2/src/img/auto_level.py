@@ -10,12 +10,15 @@ def auto_level(image):
 
     
     for channel in channels: # loop thru rgb
-        pixels = np.array(channel) # pixels is a matrix of intensity values
-        print(pixels)
+        pixel_matrix = np.array(channel) # matrix of intensity values
 
-        # for pixel in pixels:
-        #     if pixel != pixel_distrib:
-        #         print(pixel)
+
+        #print(pixels)
+
+
+        for pixel in pixel_matrix.flat: #flatten matrix so it can be iterated over
+            if pixel != pixel_distrib:
+                print(pixel)
 
 
 
