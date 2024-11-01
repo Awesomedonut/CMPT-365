@@ -6,8 +6,10 @@ def auto_level(image):
     channels = [channel_split_img[0], channel_split_img[1], channel_split_img[2]]
 
     total_pixels = int(image.width * image.height)
-    pixel_distrib = total_pixels/256
+    ideal_pixel_distrib = total_pixels/256
 
+    vibrant_channel = []
+    vibrant_channels = []
     
     for channel in channels: # loop thru rgb
         pixel_matrix = np.array(channel) # matrix of intensity values
@@ -17,8 +19,20 @@ def auto_level(image):
 
 
         for pixel in pixel_matrix.flat: #flatten matrix so it can be iterated over
-            if pixel != pixel_distrib:
-                print(pixel)
+            if pixel != ideal_pixel_distrib:
+                if pixel < ideal_pixel_distrib:
+                    pixel * 2
+                    
+                else:
+                    pixel / 2
+            #    print(pixel)
+
+            vibrant_channel.append(pixel)
+        vibrant_channels.append(vibrant_channel)
+        img = Image.merge("RGB", Image.fromarray(vibrant_channels))
+        img.save("vibrant.jpg")
+        
+
 
 
 
