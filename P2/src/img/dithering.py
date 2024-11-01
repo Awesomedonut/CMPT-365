@@ -3,10 +3,10 @@ import numpy as np
 from grayscale import grayscale
 
 dither_matrix = np.array([
-    [1, 1, 1, 1],
-    [1, 1, 1, 1],
-    [1, 1, 1, 1],
-    [1, 1, 1, 1]
+    [16, 2, 3, 14],
+    [2, 7, 7, 1],
+    [5, 8, 4, 3],
+    [11, 6, 14, 2]
 ]) * (255/16) 
 
 def ordered_dithering(image):
@@ -27,5 +27,5 @@ def ordered_dithering(image):
     return Image.fromarray(dithered_img)
 
 result = ordered_dithering(Image.open("image3.bmp"))
-result.save("dithered_output.jpg")
+result.save("dithered3.jpg")
 
