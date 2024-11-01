@@ -1,6 +1,6 @@
 from PIL import Image
 import numpy as np
-from grayscale import grayscale
+from img.grayscale import grayscale
 
 dither_matrix = np.array([
     [16, 2, 3, 14],
@@ -26,6 +26,6 @@ def ordered_dithering(image):
 
     return Image.fromarray(dithered_img)
 
-result = ordered_dithering(Image.open("image3.bmp"))
-result.save("dithered3.jpg")
+# result = ordered_dithering(Image.open("image3.bmp"))
+# result.save("dithered3.jpg")
 

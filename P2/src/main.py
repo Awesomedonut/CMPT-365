@@ -6,7 +6,7 @@ from PIL import Image, ImageTk
 from file import clear_display, open_image, save_image, update_display, display_both_imgs
 from img.grayscale import grayscale
 from img.dithering import ordered_dithering
-from img.auto_level import auto_level_image
+from img.auto_level import auto_level
 from tools.magic_eraser import magic_eraser
 
 from test import test
@@ -37,6 +37,8 @@ def edit_img(case: str):
     match case:
         case "grayscale":
             edited_img = grayscale(image)
+        case "dithering":
+            edited_img = ordered_dithering(image)
 
     display_both_imgs(image, image_label, edited_img, edited_img_label)
 
@@ -59,7 +61,7 @@ file_menu.add_command(label="Open File", command=open)
 img_menu = Menu(menu, tearoff=0)
 menu.add_cascade(label="Image Processing", menu=img_menu)
 img_menu.add_command(label="Grayscale", command=lambda: edit_img("grayscale"))
-# img_menu.add_command(label="Ordered Dithering", command=dithering)
+img_menu.add_command(label="Ordered Dithering", command=lambda: edit_img("dithering"))
 # img_menu.add_command(label="Auto Level", command=auto_level)
 
 # tools_menu = Menu(menu, tearoff=0)
