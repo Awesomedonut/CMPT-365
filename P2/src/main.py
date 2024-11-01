@@ -1,7 +1,7 @@
 # CMPT 365 Project 2 by Yan Jin Song, student number 301470175
 
 from tkinter import *
-from PIL import Image
+from PIL import Image, ImageTk
 
 from file import open_image, save_image, update_display
 from img.grayscale import grayscale
@@ -12,6 +12,7 @@ from tools.magic_eraser import magic_eraser
 from test import test
 
 image = None
+edited_img = None
 
 def open():
     global image
@@ -30,9 +31,9 @@ def edit_img(case: str):
 
     match case:
         case "grayscale":
-            grayscale(image)
+         edited_img = grayscale(image)
 
-    update_display()
+    update_display(image, image_label, edited_img, edited_img_label)
 
     
 
@@ -52,7 +53,7 @@ file_menu.add_command(label="Open File", command=open)
 
 img_menu = Menu(menu, tearoff=0)
 menu.add_cascade(label="Image Processing", menu=img_menu)
-img_menu.add_command(label="Grayscale", command=grayscale)
+img_menu.add_command(label="Grayscale", command=lambda: edit_img("grayscale"))
 # img_menu.add_command(label="Ordered Dithering", command=dithering)
 # img_menu.add_command(label="Auto Level", command=auto_level)
 
@@ -70,5 +71,14 @@ exit_menu.add_command(label="Exit", command=window.quit)
 
 image_label = Label(window)
 image_label.pack()
+
+frame = Frame(window)
+frame.pack(side=TOP)
+
+image_label = Label(frame)
+image_label.pack(side=LEFT, padx=10)
+
+edited_img_label = Label(frame)
+edited_img_label.pack(side=LEFT, padx=10)
 
 window.mainloop()
