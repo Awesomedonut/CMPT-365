@@ -17,13 +17,13 @@ def auto_level(image):
         for i, pixel in np.ndenumerate(pixel_matrix):
             if pixel != ideal_pixel_distrib:
                 if pixel < ideal_pixel_distrib:
-                    vibrant_channel[i] = min(255, pixel * 2)
+                    vibrant_channel[i] = min(ideal_pixel_distrib, pixel * 1.35)
                 else:
-                    vibrant_channel[i] = max(0, pixel / 2)
+                    vibrant_channel[i] = max(ideal_pixel_distrib, pixel / 1.35)
 
         vibrant_channels.append(Image.fromarray(vibrant_channel.astype(np.uint8)))
 
     img = Image.merge("RGB", vibrant_channels)
-    img.save("vibrant.jpg")
+    img.save("vibrant8.jpg")
 
-auto_level(Image.open("image3.bmp"))
+auto_level(Image.open("image2.bmp"))
