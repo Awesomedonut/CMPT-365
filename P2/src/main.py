@@ -3,7 +3,7 @@
 from tkinter import *
 from PIL import Image, ImageTk
 
-from file import open_image, save_image, update_display
+from file import clear_display, open_image, save_image, update_display, display_both_imgs
 from img.grayscale import grayscale
 from img.dithering import ordered_dithering
 from img.auto_level import auto_level_image
@@ -17,6 +17,9 @@ edited_img = None
 def open():
     global image
     global image_label
+    global edited_img_label
+
+    clear_display(edited_img_label)
     image = open_image()
     update_display(image, image_label)
 
@@ -26,20 +29,22 @@ def open():
 
 def edit_img(case: str):
     global image
+    global edited_img
     if image == None:
         print("pls select an image")
+        return
 
     match case:
         case "grayscale":
-         edited_img = grayscale(image)
+            edited_img = grayscale(image)
 
-    update_display(image, image_label, edited_img, edited_img_label)
+    display_both_imgs(image, image_label, edited_img, edited_img_label)
 
     
 
 
 window = Tk()
-window.geometry("1500x650") # the max width is 704 so in order for image 
+window.geometry("1450x650") # the max width is 704 so in order for image 
 # and processed image to be displayed side by side, the window width is slightly more than twice that
 window.title("Fotoshop by Jin")
 
