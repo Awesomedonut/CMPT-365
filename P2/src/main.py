@@ -8,8 +8,8 @@ from img.grayscale import grayscale
 from img.dithering import ordered_dithering
 from img.auto_level import auto_level
 from tools.magic_eraser import magic_eraser
+from tools.contrast import increase_contrast
 
-from test import test
 
 image = None
 edited_img = None
@@ -23,9 +23,13 @@ def open():
     image = open_image()
     update_display(image, image_label)
 
-# def save_file():
-#     global image
-#     save_image(image)
+def save_file():
+    global image
+    global edited_img
+    if edited_img != None:
+        save_image(edited_img)
+    else:
+        save_image(image)
 
 def edit_img(case: str):
     global image
@@ -39,10 +43,14 @@ def edit_img(case: str):
             edited_img = grayscale(image)
         case "dithering":
             edited_img = ordered_dithering(image)
+        case "level":
+            edited_img = auto_level(image)
+        case "erase":
+            edited_img = magic_eraser(image)
+        case "contrast":
+            edited_img = increase_contrast(image)
 
     display_both_imgs(image, image_label, edited_img, edited_img_label)
-
-    
 
 
 window = Tk()
@@ -56,13 +64,15 @@ window.config(menu=menu)
 file_menu = Menu(menu, tearoff=0)
 menu.add_cascade(label="File", menu=file_menu)
 file_menu.add_command(label="Open File", command=open)
-# file_menu.add_command(label="Save File", command=save_file)
+file_menu.add_command(label="Save File", command=save_file)
 
 img_menu = Menu(menu, tearoff=0)
 menu.add_cascade(label="Image Processing", menu=img_menu)
 img_menu.add_command(label="Grayscale", command=lambda: edit_img("grayscale"))
 img_menu.add_command(label="Ordered Dithering", command=lambda: edit_img("dithering"))
-# img_menu.add_command(label="Auto Level", command=auto_level)
+img_menu.add_command(label="Auto Level", command=lambda: edit_img("level"))
+img_menu.add_command(label="Magic Eraser", command=lambda: edit_img("erase"))
+img_menu.add_command(label="Increase Contrast", command=lambda: edit_img("contrast"))
 
 # tools_menu = Menu(menu, tearoff=0)
 # menu.add_cascade(label="Optional Tools", menu=tools_menu)

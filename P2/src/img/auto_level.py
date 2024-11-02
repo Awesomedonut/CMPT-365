@@ -40,5 +40,6 @@ def auto_level(image):
     
     img = Image.merge("RGB", vibrant_channels)
     img.save("vibrant28.jpg")
+    return img
 
-auto_level(Image.open("image2.bmp"))
+# auto_level(Image.open("image2.bmp"))

@@ -11,7 +11,10 @@ def open_image():
 def save_image(image):
     file_path = filedialog.asksaveasfilename(
         defaultextension=".bmp",
-        filetypes=[(".bmp files", "*.bmp")]
+        filetypes=[
+            ("png files", "*.png"),
+            ("bmp files", "*.bmp")
+        ]
     )
     image.save(file_path)
 
