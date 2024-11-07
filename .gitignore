@@ -19,3 +19,5 @@ P1-guidlines.pdf
 *.pdf
 P2/src/__pycache__
 *.pyc
+*.jpg
+*.png
