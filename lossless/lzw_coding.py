@@ -18,5 +18,5 @@ def lzw_coding(input, dict):
     print("final dict is " + str(dict))
 
 
-initial_dict = {'A': 0, 'B': 1}
-lzw_coding("AABABAB", initial_dict)
+initial_dict = {'I': 0, 'C': 1, 'E': 2, 'B': 3, 'A':4, 'N':5}
+lzw_coding("ICEBANANA", initial_dict)
