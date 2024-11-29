@@ -11,6 +11,7 @@ from tools.magic_eraser import magic_eraser
 from tools.contrast import increase_contrast
 
 
+
 image = None
 edited_img = None
 
