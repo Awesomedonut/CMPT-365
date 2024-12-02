@@ -6,6 +6,8 @@ def open_image():
         title="Open File", 
         filetypes=[(".bmp files", "*.bmp")]
     )
+    img = Image.open('path_to_file\file.bmp')
+    print(img)
     return Image.open(file_path)
 
 def save_image(image):
