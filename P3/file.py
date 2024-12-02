@@ -1,14 +1,18 @@
 from tkinter import filedialog
 from PIL import Image, ImageTk
+import numpy as np
 
 def open_image():
     file_path = filedialog.askopenfilename(
         title="Open File", 
         filetypes=[(".bmp files", "*.bmp")]
     )
-    img = Image.open('path_to_file\file.bmp')
-    print(img)
-    return Image.open(file_path)
+    if file_path:
+        return Image.open(file_path)
+    return None
+
+def get_image_data(image):
+    return list(image.convert('L').getdata())
 
 def save_image(image):
     file_path = filedialog.asksaveasfilename(
@@ -18,7 +22,8 @@ def save_image(image):
             ("bmp files", "*.bmp")
         ]
     )
-    image.save(file_path)
+    if file_path:
+        image.save(file_path)
 
 def update_display(image, image_label):
     if image:
