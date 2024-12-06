@@ -1,3 +1,5 @@
+% warning: using matlab's default funcs gives diff nums than assign solu
+
 % Define the matrix
 input_matrix = [60, 47, 28, 0, 11, 0, 0, 0;
                 0, 0, 0, 12, 0, 0, 0, 0;
