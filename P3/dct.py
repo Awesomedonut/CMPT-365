@@ -9,7 +9,7 @@ def one_dim_dct(strip):
         for j in range(N):
             
             term1 = 2 * j + 1 # 2j + 1
-            term2 = i * np.pi # i * pi
+            term2 = i * np.pi # i * π
             term3 = 2 * N # 2N
             
             angle = (term2 * term1) / term3
@@ -26,25 +26,25 @@ def one_dim_dct(strip):
     return coeffs
 
 def rows_first(matrix):
-    rows = matrix.shape[0]
+    rf_matrix = matrix.shape[0]
     final_coeffs = np.zeros_like(matrix, dtype=float)
     
-    for i in range(rows):
+    for i in range(rf_matrix): # i = rows, so rows first
         final_coeffs[i, :] = one_dim_dct(matrix[i, :])
     
-    for j in range(rows):
+    for j in range(rf_matrix): #j = cols, cols last
         final_coeffs[:, j] = one_dim_dct(final_coeffs[:, j])
         
     return np.round(final_coeffs).astype(int)
 
 def cols_first(matrix):
-    cols = matrix.shape[1]
+    cf_matrix = matrix.shape[1]
     final_coeffs = np.zeros_like(matrix, dtype=float)
     
-    for j in range(cols):
+    for j in range(cf_matrix): #cols
         final_coeffs[:, j] = one_dim_dct(matrix[:, j])
     
-    for i in range(cols):
+    for i in range(cf_matrix): #rows
         final_coeffs[i, :] = one_dim_dct(final_coeffs[i, :])
         
     return np.round(final_coeffs).astype(int)
