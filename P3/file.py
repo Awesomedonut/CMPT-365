@@ -1,6 +1,5 @@
 from tkinter import filedialog
 from PIL import Image, ImageTk
-import numpy as np
 
 def open_image():
     file_path = filedialog.askopenfilename(
@@ -12,7 +11,17 @@ def open_image():
     return None
 
 def get_image_data(image):
-    return list(image.convert('L').getdata())
+
+
+    if image.mode != 'RGB':
+        image = image.convert('RGB')
+    
+
+    pixels = list(image.getdata())
+   # print(pixels)
+    
+
+    return pixels
 
 def save_image(image):
     file_path = filedialog.asksaveasfilename(
@@ -30,6 +39,7 @@ def update_display(image, image_label):
         image_tk = ImageTk.PhotoImage(image)
         image_label.config(image=image_tk)
         image_label.image = image_tk  # prevent garbage collection
+        
 
 def display_both_imgs(image, image_label, edited_img, edited_img_label):
     update_display(image, image_label)
