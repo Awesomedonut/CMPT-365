@@ -36,7 +36,7 @@ predictors = [
     p7
 ]
 
-def predict(img_arr, predictor_num):
+def predict_all_pixels(img_arr, predictor_num):
     height, width = img_arr.shape
     diffs = np.zeros_like(img_arr, dtype=np.int16)
     
@@ -66,8 +66,8 @@ def predict(img_arr, predictor_num):
 
 
 
-def test_all_predictors(img_array, predictor_num):
-    diffs = predict(img_array, predictor_num)
+def compress_with_predictor(img_array, predictor_num):
+    diffs = predict_all_pixels(img_array, predictor_num)
     diff_list = diffs.flatten().tolist()
     
     huffman_codes, coded_arr = huffman_encode(diff_list)
@@ -83,7 +83,7 @@ def find_best_predictor(channel_data):
     best_codes = None
     
     for predictor_num in range(1, 8):
-        compressed_size, coded_arr, huffman_codes = test_all_predictors(channel_data, predictor_num)
+        compressed_size, coded_arr, huffman_codes = compress_with_predictor(channel_data, predictor_num)
         
         if compressed_size < smallest_size:
             smallest_size = compressed_size
